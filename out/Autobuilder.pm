@@ -84,14 +84,16 @@ sub _find_errors($$)
 	    # $errors++; # the result code should be enough...
 	} elsif ($s =~ /^\s*(\S*)\s*(hint|warning|error|fatal)\s*:\s*(.*)/i) {
 	    my $type = $2;
-	    my $s = "$type: $1 $3<br>\n";
-	    if ($type =~ /(error|fatal)/i) {
-		$out .= $s;
-		$errors++;
-	    } else {
-		if ($ignore_warnings == 0) {
+	    unless ($3 =~ /# 0/) {
+		my $s = "$type: $1 $3<br>\n";
+		if ($type =~ /(error|fatal)/i) {
 		    $out .= $s;
-		    $warnings++;
+		    $errors++;
+		} else {
+		    if ($ignore_warnings == 0) {
+			$out .= $s;
+			$warnings++;
+		    }
 		}
 	    }
 	} elsif ($s =~ /^\s*(\S*)\s*(hint|warning)\s*:\s*(.*)/i) {
