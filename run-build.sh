@@ -37,6 +37,7 @@ _run()
 	echo --STOP-IGNORE-WARNINGS
 	
 	log "Cleaning..."
+	rm -rf out~
 	git clean -q -f -x -d || 
 	git clean -q -f -x -d || return 30
 	
