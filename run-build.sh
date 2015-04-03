@@ -42,10 +42,13 @@ _run()
 	git clean -q -f -x -d || return 30
 	
 	log "Building..."
-	../build.sh 2>&1 || return 40
-	
-	log "Done at: $(date)"
-	return 0
+	if ../build.sh 2>&1; then
+		log "Done at: $(date)"
+		return 0
+	else
+		log "Failed at: $(date)"
+		return 40
+	fi
 }
 
 run()
