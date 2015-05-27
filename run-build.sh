@@ -30,16 +30,9 @@ _run()
 	for sub in `git submodule -q foreach pwd`; do
 	    rm -rf $sub
 	done
-	git reset --hard HEAD  # in case there were modified files
-	git checkout "$commit" &&
-	git reset --hard $commit || 
-	git reset --hard $commit || return 20
+	git clean -q -f -x -d
+	git checkout --force "$commit" || return 20
 	echo --STOP-IGNORE-WARNINGS
-	
-	log "Cleaning..."
-	rm -rf out~
-	git clean -q -f -x -d || 
-	git clean -q -f -x -d || return 30
 	
 	log "Building..."
 	if ../build.sh 2>&1; then
