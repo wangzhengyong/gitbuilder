@@ -63,9 +63,9 @@ go()
 	# lets us rename open files, so we can do that here.
 	# FIXME: it would be cleaner if the caller renamed the output
 	# file based on our result code, however.
-	if [ "$CODE" = 0 ]; then
-		[ ! -x pass.sh ] || ./pass.sh $ref || CODE=1
-	fi
+	#if [ "$CODE" = 0 ]; then
+	#	[ ! -x pass.sh ] || ./pass.sh $ref || CODE=1
+	#fi
 	if [ "$CODE" = 0 ]; then
 		echo PASS
 		mv -v out/log out/pass/$ref
